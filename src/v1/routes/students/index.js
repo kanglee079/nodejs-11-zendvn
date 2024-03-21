@@ -6,10 +6,10 @@ const StudentController = require('../../controller/student.controller');
 const asyncHandler = require('../../utils/asyncHandle');
 
 router.post('/', asyncHandler(StudentController.createStudent));
+router.get('/:id', asyncHandler(StudentController.getStudentById));
 router.get('/', asyncHandler(StudentController.getStudents));
-router.get('/fill', asyncHandler(StudentController.getStudentByAge));
-router.get('/fill-report', asyncHandler(StudentController.getStudentByReport));
-router.get('/fill-age-email', asyncHandler(StudentController.getStudentByAgeAndEmail));
-router.put('/:id', asyncHandler(StudentController.updateReport));
+router.put('/:id', asyncHandler(StudentController.updateStudent));
+router.delete('/:id', asyncHandler(StudentController.deleteStudent));
+router.patch('/delete-multi', asyncHandler(StudentController.deleteMultiStudent));
 
 module.exports = router;

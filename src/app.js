@@ -2,8 +2,10 @@ const express = require('express');
 const app = express();
 const helmet = require('helmet')
 const morgan = require('morgan')
-const compression = require('compression')
+const compression = require('compression');
+const { mongo, default: mongoose } = require('mongoose');
 require('dotenv').config()
+const {handleErrorsValidationMongoose} = require('./v1/middlewares/index')
 
 require('./v1/databases/init.mongodb')
 
@@ -23,13 +25,8 @@ app.use(express.urlencoded({
 //router
 app.use(require('./v1/routes/index.router'))
 
-// Error Handling Middleware called
-
-app.use((req, res, next) => {
-    const error = new Error("Not found");
-    error.status = 404;
-    next(error);
-});
+// Error Handling Middleware mongoose
+app.use(handleErrorsValidationMongoose);
 
 
 // error handler middleware

@@ -9,6 +9,13 @@ class StudentController {
             metadata: await StudentService.addStudent(req.body),
        }).sendData(res);
     }
+    
+    static getStudentById = async (req, res, next) => {
+        new OK({
+            message: 'Students fetched successfully!',
+            metadata: await StudentService.getStudentById(req.params.id),
+        }).sendData(res);
+    }
 
     static getStudents = async (req, res, next) => {
         new OK({
@@ -16,34 +23,28 @@ class StudentController {
             metadata: await StudentService.getStudents(req.query),
         }).sendData(res);
     }
-
-    static getStudentByAge = async (req, res, next) => {
+    
+    static updateStudent = async (req, res, next) => {
         new OK({
             message: 'Students fetched successfully!',
-            metadata: await StudentService.getStudentByAge(req.query),
+            metadata: await StudentService.updateStudent({id: req.params.id, body: req.body}),
         }).sendData(res);
     }
 
-    static getStudentByReport = async (req, res, next) => {
+    static deleteStudent = async (req, res, next) => {
         new OK({
-            message: 'Students fetched successfully!',
-            metadata: await StudentService.getStudentByReport(req.query),
+            message: 'Students deleted successfully!',
+            metadata: await StudentService.deleteStudent(req.params.id),
         }).sendData(res);
     }
 
-    static getStudentByAgeAndEmail = async (req, res, next) => {
+    static deleteMultiStudent = async (req, res, next) => {
         new OK({
-            message: 'Students fetched successfully!',
-            metadata: await StudentService.getStudentByAgeAndEmail(),
+            message: 'Students deleted successfully!',
+            metadata: await StudentService.deleteMultiStudent(req.body),
         }).sendData(res);
     }
 
-    static updateReport = async (req, res, next) => {
-        new OK({
-            message: 'Students fetched successfully!',
-            metadata: await StudentService.updateReport(req.params, req.query),
-        }).sendData(res);
-    }
 }
 
 module.exports = StudentController;
